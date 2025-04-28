@@ -1,0 +1,64 @@
+import math
+
+class GameObject:
+    def __inti__(self,playground=None):
+        if playground is None:
+            self._playground = [1200,900]
+        else:
+            self._playground = playground #移動範圍
+            self._objectBound = (0,self._playground[0],0,self._playground[1])
+            self._changeX = 0  #座標改變量
+            self._changeY = 0
+            self._x= 0  #貼圖位置
+            self._y = 0
+            self._moveScale = 1  #移動計量值
+            self._hp = 1
+            self._image = None
+            self._avaliable = True  #有效物件
+            self._center = None
+            self._radius = None  #碰撞半徑
+            self._collided = False  #是否產生碰撞
+    @property
+    def x(self):
+        return self._x
+    
+    @x.setter
+    def x(self,value):
+        self._x=value
+
+    def to_the_left(self):
+        self._changeX = -self._moveScale
+    
+    def to_the_left(self):
+        self._changeX = self._moveScale
+
+    def to_the_left(self):
+        self._changeY = -self._moveScale
+
+    def to_the_left(self):
+        self._changeY = self._moveScale
+
+    def stop_x(self):
+        self._changeX = 0
+
+    def stop_y(self):
+        self._changeY = 0
+    
+    def update(self):
+        self.x += self._changeX
+        self.y += self._changeY
+        if self.x > self._objectBound[1]:
+            self.x = self._objectBound[1]
+        if self.x < self._objectBound[0]:
+            self.x = self._objectBound[0]
+        if self.y > self._objectBound[3]:
+            self.y = self._objectBound[3]
+        if self.y < self._objectBound[2]:
+            self.y = self._objectBound[2]
+
+    def _collided_(self,it):
+        distance = math.hypot(self._center[0] - it.center[0], self.center[1] - it.center[1])
+        if distance < self._radius + it.radius:
+            return True
+        else:
+            return False
