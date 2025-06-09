@@ -7,7 +7,7 @@ class MyMissile(GameObject):
     def __init__(self,playground, xy,sensitivity=1):
         GameObject.__init__(self,playground)
         __parent_path = Path(__file__).parents[1]
-        self.__missile_path = __parent_path /'res'/ 'missile2.png'
+        self.__missile_path = __parent_path /'res'/ 'missile.png'
         self._image = pygame.image.load(self.__missile_path)
         self._center = self._x + self._image.get_rect().w/2,self._y + self._image.get_rect().w/2
         self._radius = self._image.get_rect().w/2
@@ -17,16 +17,15 @@ class MyMissile(GameObject):
         self._moveScale = 0.7 * sensitivity
         self.to_the_top() #移動方向
 
-        def update(self):
+    def update(self):
             self._y +=self._changeY
             if self._y<self._objectBound[2]:
                 self._available = False
             self._center = self._x + self._image.get_rect().w/2,self._y + self._image.get_rect().w/2
         
-        def collision_detect(self,enemies):
+    def collision_detect(self,enemies):
             for m in enemies:
                 if self._collided_(m):
-                    self._hp -=10
                     self._collided = True
                     self._available = False
                     m.hp = -1

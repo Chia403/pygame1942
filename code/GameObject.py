@@ -6,7 +6,7 @@ class GameObject:
             self._playground = [1200,900]
         else:
             self._playground = playground #移動範圍
-            self._objectBound = (0,self._playground[0],0,self._playground[1])
+            self._objectBound = (0,self._playground[0],0,self._playground[1])  #邊界範圍
             self._changeX = 0  #座標改變量
             self._changeY = 0
             self._x= 0  #貼圖位置
@@ -72,9 +72,8 @@ class GameObject:
             self.y = self._objectBound[2]
 
     def _collided_(self,it):
-        distance = math.hypot(self._center[0] - it.center[0], self.center[1] - it.center[1])
-        if distance < self._radius + it.radius:
+        distance = math.hypot(self._center[0] - it._center[0], self._center[1] - it._center[1])  #計算兩點間直線距離
+        if distance < self._radius + it._radius:
             return True
         else:
             return False
-        
